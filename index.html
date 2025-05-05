@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberBet - Prediction Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.skypack.dev/three@0.132.2"></script>
+    <style>
+        :root {
+            --bg-color: #0a0a1f;
+            --text-color: #ffffff;
+            --accent-color: #00ff9d;
+            --secondary-color: #00ccff;
+        }
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        .cyber-gradient {
+            background: linear-gradient(45deg, #00ff9d33, #00ccff33);
+        }
+        .cyber-border {
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 0 10px #00ff9d40;
+        }
+        .tab-active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 3px;
+        }
+        .animate-fade {
+            animation: fade 0.3s ease;
+        }
+        @keyframes fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen" data-theme="dark">
+    <header class="fixed w-full top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-[#00ff9d]/30">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold">CyberBet</h1>
+                <div class="flex items-center space-x-6">
+                    <button id="tab-live" class="text-sm hover:text-[#00ccff] transition-colors tab-active">Live</button>
+                    <button id="tab-trending" class="text-sm hover:text-[#00ccff] transition-colors">Trending</button>
+                    <button id="tab-resolved" class="text-sm hover:text-[#00ccff] transition-colors">Resolved</button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <i class="bi bi-house-door-fill text-xl"></i>
+                    <i class="bi bi-trophy text-xl"></i>
+                    <i class="bi bi-person text-xl"></i>
+                    <i class="bi bi-friend text-xl"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 pt-24 pb-24">
+        <div class="cyber-border cyber-gradient rounded-lg p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Dashboard</h3>
+                <button id="create-btn" class="bg-[#00ff9d] text-black font-bold py-2 px-4 rounded">Create Bet/Prediction</button>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <p class="text-2xl font-bold">15,487</p>
+                    <p class="text-sm text-gray-400">Total Users</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold">156,234</p>
+                    <p class="text-sm text-gray-400">Total Bets</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold">$2.5M</p>
+                    <p class="text-sm text-gray-400">Total Volume</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-hidden my-8 cyber-border rounded-lg relative">
+            <h2 class="text-2xl font-bold mb-6">Upcoming Events</h2>
+            <div class="flex transition-transform duration-500">
+                <span class="flex-shrink-0 px-4 py-4">🔥 BTC Price Prediction: $45,000 by EOY</span>
+                <span class="flex-shrink-0 px-4 py-4">⚡ ETH 2.0 Launch Success Rate</span>
+                <span class="flex-shrink-0 px-4 py-4">🎮 CS:GO Major Finals Prediction</span>
+            </div>
+            <button class="absolute left-2 top-1/2 -translate-y-1/2">❮</button>
+            <button class="absolute right-2 top-1/2 -translate-y-1/2">❯</button>
+        </div>
+
+        <div id="tab-content" class="my-8">
+            <div id="content-live" class="tab-content animate-fade">
+                <h2 class="text-2xl font-bold mb-6">Live Predictions</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="cyber-border rounded-lg p-6 hover:bg-[#00ff9d]/10 transition-colors cursor-pointer relative">
+                        <h3 class="text-xl">Crypto Predictions</h3>
+                        <p class="text-sm text-gray-400">Predict cryptocurrency prices</p>
+                        <button class="mt-4 w-full bg-[#00ff9d] text-black font-bold py-2 rounded-lg">Bet Now</button>
+                    </div>
+                    <div class="cyber-border rounded-lg p-6 hover:bg-[#00ff9d]/10 transition-colors cursor-pointer">
+                        <h3 class="text-xl">Futures Trading</h3>
+                        <p class="text-sm text-gray-400">Trade perpetual futures</p>
+                        <button class="mt-4 w-full bg-[#00ff9d] text-black font-bold py-2 rounded-lg">Bet Now</button>
+                    </div>
+                    <div class="cyber-border rounded-lg p-6 hover:bg-[#00ff9d]/10 transition-colors cursor-pointer">
+                        <h3 class="text-xl">Sports Betting</h3>
+                        <p class="text-sm text-gray-400">Bet on sports events</p>
+                        <button class="mt-4 w-full bg-[#00ff9d] text-black font-bold py-2 rounded-lg">Bet Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-trending" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Trending Predictions</h2>
+                <!-- Trending Content Here -->
+            </div>
+
+            <div id="content-resolved" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Resolved Predictions</h2>
+                <!-- Resolved Content Here -->
+            </div>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 w-full bg-black/90 backdrop-blur-sm border-t border-[#00ff9d]/30">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around py-3">
+                <button class="flex flex-col items-center">
+                    <i class="bi bi-house-door-fill text-xl text-[#00ccff]"></i>
+                    <span class="text-xs mt-1">Home</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <i class="bi bi-trophy text-xl"></i>
+                    <span class="text-xs mt-1">Leaderboard</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <i class="bi bi-bell text-xl"></i>
+                    <span class="text-xs mt-1">Notifications</span>
+                </button>
+                <button class="flex flex-col items-center">
+                    <i class="bi bi-person text-xl"></i>
+                    <span class="text-xs mt-1">Profile</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const tabs = ['live', 'trending', 'resolved'];
+        tabs.forEach(tab => {
+            document.getElementById(`tab-${tab}`).addEventListener('click', () => {
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(`content-${tab}`).classList.remove('hidden');
+                
+                tabs.forEach(t => {
+                    document.getElementById(`tab-${t}`).classList.remove('tab-active');
+                });
+                document.getElementById(`tab-${tab}`).classList.add('tab-active');
+            });
+        });
+
+        const createBtn = document.getElementById('create-btn');
+        createBtn.addEventListener('click', () => {
+            alert('Create Bet/Prediction Button Clicked');
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
